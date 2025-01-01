@@ -1,8 +1,28 @@
 ja:
   activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "を入力してください"
+            email:
+              blank: "を入力してください"
+              taken: "はすでに存在します"
+            password:
+              blank: "を入力してください"
+              confirmation: "パスワードが一致しません"
+              too_short: "短すぎます"
+            password_confirmation:
+              blank: "を入力してください"
+            messages:
+              blank: "入力してください"
+      messages:
+        not_found: "見つかりません"
     attributes:
       user:
         current_password: "現在のパスワード"
+        name: "名前"
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "確認用パスワード"
