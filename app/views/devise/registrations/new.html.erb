@@ -1,45 +1,58 @@
-<h2>新規登録</h2>
+<div class="max-w-md mx-auto bg-white p-6">
+  <h2 class="text-2xl mt-8 text-center text-gray-800 mb-8">新規登録</h2>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { novalidate: true, class: 'space-y-4' }) do |f| %>
+    <div class="field">
+      <%= f.label :name, class: "text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name,
+        autofocus: true,
+        autocomplete: "name",
+        placeholder: "アカデミー花子",
+        class: "mt-1 block w-full border-b border-gray-300 focus:border-primary focus:ring-0 outline-none text-gray-900"
+      %>
+      <% if resource.errors[:name].any? %>
+        <div class="text-red-400">
+          <% resource.errors[:name].each do |error| %>
+            <p><%= error %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { novalidate: true }) do |f| %>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, autofocus: true %>
-    <% if resource.errors[:name].any? %>
-      <div class="error">
-        <% resource.errors[:name].each do |error| %>
-          <p><%= error %></p>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+    <div class="field">
+      <%= f.label :email, class: "text-sm font-medium text-gray-700" %>
+      <%= f.email_field :email,
+        autofocus: true,
+        autocomplete: "email",
+        placeholder: "tatsuya.yokokura@prum.jp",
+        class: "mt-1 block w-full border-b border-gray-300 focus:border-primary focus:ring-0 outline-none text-gray-900"
+      %>
+      <% if resource.errors[:email].any? %>
+        <div class="text-red-400">
+          <% resource.errors[:email].each do |error| %>
+            <p><%= error %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    <% if resource.errors[:email].any? %>
-      <div class="error">
-        <% resource.errors[:email].each do |error| %>
-          <p><%= error %></p>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+    <div class="field">
+      <%= f.label :password, class: "text-sm font-medium text-gray-700" %>
+      <%= f.password_field :password,
+        autocomplete: "new-password",
+        placeholder: "●●●●●●●●",
+        class: "mt-1 block w-full border-b border-gray-300 focus:border-primary focus:ring-0 outline-none text-gray-900"
+      %>
+      <% if resource.errors[:password].any? %>
+        <div class="text-red-400">
+          <% resource.errors[:password].each do |error| %>
+            <p><%= error %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if resource.errors[:password].any? %>
-      <div class="error">
-        <% resource.errors[:password].each do |error| %>
-          <p><%= error %></p>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "新規登録" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+    <div class="actions flex justify-center items-center">
+      <%= render "devise/shared/button", text: "登録する", path: registration_path(resource_name), method: :post, extra_classes: "w-[232px]" %>
+    </div>
+  <% end %>
+</div>
