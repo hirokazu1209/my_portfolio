@@ -76,3 +76,5 @@ group :test do
   gem "webdrivers"
   gem "rspec-rails"
 end
+
+gem "tailwindcss-rails", "~> 3.1"
