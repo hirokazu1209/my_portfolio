@@ -5,16 +5,19 @@ ja:
         user:
           attributes:
             name:
-              blank: "を入力してください"
+              blank: "名前は必ず入力してください"
+              too_long: "名前は255文字以内で入力してください"
             email:
-              blank: "を入力してください"
-              taken: "はすでに存在します"
+              blank: "メールアドレスは必ず入力してください"
+              invalid: "メールアドレスが正しい形式ではありません"
+              taken: "メールアドレスはすでに存在します"
             password:
-              blank: "を入力してください"
+              blank: "パスワードは必ず入力してください"
+              too_short: "パスワードは8文字以上で入力してください"
+              invalid: "パスワードは英数字で入力してください"
               confirmation: "パスワードが一致しません"
-              too_short: "短すぎます"
             password_confirmation:
-              blank: "を入力してください"
+              blank: "は必ず入力してください"
             messages:
               blank: "入力してください"
       messages:
