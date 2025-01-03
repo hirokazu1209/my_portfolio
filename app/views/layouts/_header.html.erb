@@ -1,15 +1,19 @@
 <header class="bg-primary h-[100px]">
 
   <div class="flex items-center justify-between h-[100px] px-4">
-    <div class="text-3xl font-bold text-white">My Portfolio</div>
-    <nav>
-      <ul>
-        <li>
-          <a href="/contact" class="inline-flex items-center justify-center h-12 bg-white text-black text-lg px-6 py-3 rounded-sm shadow-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition duration-200 w-[150px]">
-            ログイン
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <% if !user_signed_in? && controller_name == "registrations" %>
+      <!-- 未ログインかつ新規登録画面時: My Portfolioを中央揃え -->
+      <%= link_to "My Portfolio", new_user_session_path, class: "text-3xl font-bold text-white mx-auto" %>
+    <% else %>
+      <!-- 通常時: 左揃えのMy Portfolioと条件に応じたボタン -->
+      <%= link_to "My Portfolio", user_signed_in? ? root_path : new_user_session_path, class: "text-3xl font-bold text-white" %>
+      <% if user_signed_in? %>
+        <!-- ログイン済み時: ログアウトボタン -->
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "inline-flex items-center justify-center h-12 bg-white text-black text-lg px-6 py-3 rounded-sm shadow-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition duration-200 w-[150px]" %>
+      <% elsif controller_name != "registrations" %>
+        <!-- 未ログイン時かつ新規登録画面以外: ログインボタン -->
+        <%= link_to "ログイン", new_user_session_path, class: "inline-flex items-center justify-center h-12 bg-white text-black text-lg px-6 py-3 rounded-sm shadow-md border border-gray-300 hover:bg-gray-100 hover:text-gray-800 transition duration-200 w-[150px]" %>
+      <% end %>
+    <% end %>
   </div>
 </header>
