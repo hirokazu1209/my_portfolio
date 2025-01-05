@@ -1,2 +1,35 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div class="flex items-center justify-center min-h-screen bg-white">
+  <div class="w-full max-w-[800px] flex justify-center mx-auto px-[50px]">
+    <!-- 4:6 のレイアウト -->
+    <div class="w-4/10 flex flex-col items-center p-4 w-full">
+      <!-- 画像部分 -->
+      <a href="/profile/edit" class="w-80 h-80 rounded-full bg-gray-300 flex items-center justify-center cursor-pointer overflow-hidden hover:opacity-75">
+        <% if @user.profile_picture_pass.present? %>
+          <img src="<%= @user.profile_picture_pass %>" alt="Profile Image" class="w-full h-full object-cover rounded-full">
+        <% else %>
+          <span class="text-gray-500 text-md">未選択</span>
+        <% end %>
+      </a>
+
+      <!-- 氏名部分 -->
+      <p class="mt-4 text-lg font-semibold w-full text-center">
+        <%= @user.name.present? ? @user.name : "未入力です" %>
+      </p>
+    </div>
+
+    <div class="w-6/10 flex flex-col p-4 w-full">
+      <!-- タイトル -->
+      <p class="mb-4 text-lg border-b-2 border-gray-300">自己紹介</p>
+
+      <!-- テキスト部分 -->
+      <p class="mb-4 text-lg w-full">
+        <%= @user.self_introduction.present? ? @user.self_introduction : "未入力です" %>
+      </p>
+
+      <!-- ボタン部分 -->
+      <a href="/profile/edit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full text-center">
+        自己紹介を編集する
+      </a>
+    </div>
+  </div>
+</div>
