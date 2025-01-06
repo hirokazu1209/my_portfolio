@@ -1,7 +1,7 @@
 <div class="flex items-center justify-center min-h-screen bg-white">
-  <div class="w-full max-w-[800px] flex justify-center mx-auto px-[50px]">
+  <div class="w-[1000px] flex justify-center">
     <!-- 4:6 のレイアウト -->
-    <div class="w-4/10 flex flex-col items-center p-4 w-full">
+    <div class="w-5/12 flex flex-col items-center p-4">
       <!-- 画像部分 -->
       <a href="/profile/edit" class="w-80 h-80 rounded-full bg-gray-300 flex items-center justify-center cursor-pointer overflow-hidden hover:opacity-75">
         <% if @user.profile_picture_pass.present? %>
@@ -17,9 +17,9 @@
       </p>
     </div>
 
-    <div class="w-6/10 flex flex-col p-4 w-full">
+    <div class="w-10/12 flex flex-col p-4">
       <!-- タイトル -->
-      <p class="mb-4 text-lg border-b-2 border-gray-300">自己紹介</p>
+      <h2 class="block text-2xl mt-8 border-b-2 border-gray-300 mb-8">自己紹介</h2>
 
       <!-- テキスト部分 -->
       <p class="mb-4 text-lg w-full">
@@ -27,9 +27,9 @@
       </p>
 
       <!-- ボタン部分 -->
-      <a href="/profile/edit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full text-center">
-        自己紹介を編集する
-      </a>
+      <div class="actions flex items-center">
+        <%= render "devise/shared/button", text: "自己紹介を編集する", path: "#", method: :get, extra_classes: "w-[232px] mt-4" %>
+      </div>
     </div>
   </div>
 </div>
