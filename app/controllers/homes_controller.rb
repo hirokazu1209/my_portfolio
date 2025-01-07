@@ -6,15 +6,24 @@ class HomesController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    @user = User.find(params[:id])
+    unless @user.id == current_user.id
+      redirect_to root_path
+    end
   end
 
   def update
-    @user = current_user
-    if @user.update(user_params)
-      redirect_to root_path
+    @user = User.find(params[:id])
+    if @user.update!(user_params)
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@user, partial: "homes/user", locals: { user: @user }) }
+        format.html { redirect_to root_path }
+      end
     else
-      render :edit
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@user, partial: "homes/user", locals: { user: @user }) }
+        format.html { render :edit }
+      end
     end
   end
 

@@ -28,7 +28,7 @@
 
       <!-- ボタン部分 -->
       <div class="actions flex items-center">
-        <%= render "devise/shared/button", text: "自己紹介を編集する", path: "#", method: :get, extra_classes: "w-[232px] mt-4" %>
+        <%= render "devise/shared/button", text: "自己紹介を編集する", path: "homes/#{@user.id}/edit", method: :get, extra_classes: "w-[232px]" %>
       </div>
     </div>
   </div>
