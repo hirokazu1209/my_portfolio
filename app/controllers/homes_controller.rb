@@ -14,16 +14,12 @@ class HomesController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update!(user_params)
-      respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@user, partial: "homes/user", locals: { user: @user }) }
-        format.html { redirect_to root_path }
-      end
+    if @user.update(user_params)
+      flash[:success] = "編集が完了しました"
+      redirect_to root_path
     else
-      respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@user, partial: "homes/user", locals: { user: @user }) }
-        format.html { render :edit }
-      end
+      flash[:danger] = "編集に失敗しました"
+      render :edit
     end
   end
 

@@ -1,9 +1,9 @@
 <div class="max-w-md mx-auto bg-white p-6">
   <h2 class="text-2xl mt-8 text-center text-gray-800 mb-8">自己紹介を編集する</h2>
-  <%= form_for(@user, url: {action: 'update'}, html: { novalidate: true, class: 'space-y-4' }) do |f| %>
+  <%= form_with(model: @user, url: home_path(id: @user.id), method: :patch, local: true, class: "space-y-4") do |f| %>
     <div class="field">
       <%= f.label :self_introduction, class: "text-sm font-medium text-gray-700" %>
-      <%= f.text_field :self_introduction,
+      <%= f.text_area :self_introduction,
         autofocus: true,
         autocomplete: "self_introduction",
         class: "mt-1 block w-full border-b border-gray-300 focus:border-primary focus:ring-0 outline-none text-gray-900"
@@ -18,7 +18,7 @@
     </div>
 
     <div class="actions flex justify-center items-center">
-      <%= render "devise/shared/button", text: "登録する", path: home_path, method: :patch, extra_classes: "w-[232px]" %>
+      <%= button_to "更新する", home_path(@user), method: :patch, data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, class: "w-[232px]" %>
     </div>
   <% end %>
 </div>
