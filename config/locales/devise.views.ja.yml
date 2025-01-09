@@ -18,6 +18,10 @@ ja:
               confirmation: "パスワードが一致しません"
             password_confirmation:
               blank: "は必ず入力してください"
+            self_introduction:
+              blank: "自己紹介は必ず入力してください"
+              too_short: "自己紹介は50文字以上で入力してください"
+              too_long: "自己紹介は200文字以内で入力してください"
             messages:
               blank: "入力してください"
       messages:

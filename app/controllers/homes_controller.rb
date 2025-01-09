@@ -14,12 +14,10 @@ class HomesController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
-      flash[:success] = "編集が完了しました"
+    if @user.update_without_password(user_params)
       redirect_to root_path
     else
-      flash[:danger] = "編集に失敗しました"
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
