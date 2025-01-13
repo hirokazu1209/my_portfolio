@@ -1,0 +1,75 @@
+<div class="max-w-md mx-auto bg-white p-6">
+  <h2 class="text-2xl mt-8 text-center text-gray-800 mb-8">自己紹介を編集する</h2>
+  <%= form_with(model: @user, url: home_path(id: @user.id), method: "patch", local: true, class: "space-y-4") do |f| %>
+    <div class="field">
+      <%= f.label "自己紹介文", class: "text-sm font-medium text-gray-700" %>
+      <%= f.text_area :self_introduction,
+        autofocus: true,
+        autocomplete: "self_introduction",
+        class: "mt-1 block w-full border-b border-gray-300 focus:border-primary focus:ring-0 outline-none text-gray-900"
+      %>
+      <p class="text-[#757575] text-sm">50文字以上、200文字以下で入力してください</p>
+
+      <% if @user.errors[:self_introduction].any? %>
+        <div class="text-red-400">
+          <% @user.errors[:self_introduction].each do |error| %>
+            <p><%= error %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="field flex flex-col">
+      <%= f.label "アバター画像", class: "text-sm font-medium text-gray-700" %>
+      <%= f.file_field :profile_picture_pass, class: "hidden", id: "file-input" %>
+      <label for="file-input" class="px-4 py-2 bg-[#E5E5E5] rounded cursor-pointer w-fit">
+        画像ファイルを添付する
+      </label>
+      <p id="file-name" class="mt-2 text-gray-700">
+        <% if @user.profile_picture_pass.attached? %>
+          <%= @user.profile_picture_pass.filename.to_s %>
+        <% end %>
+      </p>
+      <% if @user.errors[:profile_picture_pass].any? %>
+        <div class="text-red-400">
+          <% @user.errors[:profile_picture_pass].each do |error| %>
+            <p><%= error %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="actions flex justify-center items-center">
+      <%= render "shared/button", text: "自己紹介を確定する", path: home_path(id: @user.id), method: :patch, extra_classes: "w-[232px]" %>
+    </div>
+  <% end %>
+
+  <script>
+    document.addEventListener("turbo:load", function () {
+      const fileInput = document.getElementById("file-input");
+      const fileNameDisplay = document.getElementById("file-name");
+
+      if (!fileInput || !fileNameDisplay) return;
+
+      let originalFileName = fileNameDisplay.textContent.trim();
+      let currentFileName = originalFileName;
+
+      fileInput.addEventListener("input", function () {
+        if (fileInput.files.length > 0) {
+          // 新しいファイルを選択した場合、ファイル名を即時反映
+          currentFileName = fileInput.files[0].name;
+          fileNameDisplay.textContent = currentFileName;
+        }
+      });
+      // ファイル選択画面が閉じられたとき（キャンセル時）
+      fileInput.addEventListener("click", function () {
+        setTimeout(() => {
+          if (fileInput.files.length === 0) {
+            // 既に選択されたファイルがあれば、それを保持
+            fileNameDisplay.textContent = currentFileName;
+          }
+        }, 100);
+      });
+    });
+  </script>
+</div>
