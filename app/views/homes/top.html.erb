@@ -3,9 +3,9 @@
     <!-- 4:6 のレイアウト -->
     <div class="w-5/12 flex flex-col items-center p-4">
       <!-- 画像部分 -->
-      <div class="w-80 h-80 rounded-full bg-gray-300 flex items-center justify-center cursor-pointer overflow-hidden hover:opacity-75">
-        <% if @user.profile_picture_pass.present? %>
-          <img @user.profile_picture_pass alt="Profile Image" class="w-full h-full object-cover rounded-full">
+      <div class="w-80 h-80 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+        <% if @user.profile_picture_pass.attached? %>
+          <div><%= image_tag @user.profile_picture_pass, class: "w-full h-full object-cover" %></div>
         <% else %>
           <span class="text-gray-500 text-md">未選択</span>
         <% end %>
@@ -19,7 +19,7 @@
 
     <div class="w-10/12 flex flex-col p-4">
       <!-- タイトル -->
-      <h2 class="block text-2xl mt-8 border-b-2 border-gray-300 mb-8">自己紹介</h2>
+      <h2 class="block text-2xl mt-8 border-b-2 border-[#808080] mb-8 w-fit">自己紹介</h2>
 
       <!-- テキスト部分 -->
       <p class="mb-4 text-lg w-full">
