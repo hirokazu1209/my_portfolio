@@ -1,0 +1,43 @@
+<div id="items-list">
+  <% @items_grouped_by_category.each do |category, items| %>
+    <div class=" p-4 border border-gray-500 rounded-lg mb-8">
+      <div>
+        <div class="flex items-center justify-between">
+          <h1 class="w-[200px] underline underline-offset-4 decoration-2 font-bold text-2xl"><%= category.name %></h1>
+          <div class="actions flex items-center justify-center mt-0 py-4">
+            <%= render "shared/button", text: "項目を追加する", path: "#", method: :get, extra_classes: "mt-0 w-[180px]" %>
+          </div>
+        </div>
+        <!-- テーブルコンポーネント -->
+        <div class="w-full border shadow-md rounded-lg">
+          <table class="w-full divide-y divide-slate-200">
+            <thead class="text-slate-800">
+              <tr>
+                <th class="px-4 py-2 text-start">項目名</th>
+                <th class="px-4 py-2 text-start">学習時間</th>
+                <th class="px-4 py-2 text-start"></th>
+                <th class="px-4 py-2 text-start"></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white text-slate-80">
+              <% items.each do |item| %>
+                <tr>
+                  <td class="px-4 py-4 w-1/4"><%= item.name %></td>
+                  <td class="px-4 py-4 w-1/4">
+                    <input type="number" list="number-options" name="study_time" value="<%= item.study_time %>" min="1" max="180" class="w-full border rounded px-2 py-2" />
+                  </td>
+                  <td class="actions px-4 py-4 text-center items-center justify-center w-1/4">
+                    <%= render "shared/button", text: "学習時間を保存する", path: "#", method: "#", extra_classes: "text-primary border border-primary" %>
+                  </td>
+                  <td class="actions px-4 py-4 text-center items-center justify-center w-[100px]">
+                    <%= render "shared/button", text: "削除する", path: "#", method: "#", extra_classes: "bg-secondary w-[100px]" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
