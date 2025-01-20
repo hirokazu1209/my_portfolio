@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :category do
-    name { "MyString" }
+    name { 'バックエンド' }
+    name { 'フロントエンド' }
+    name { 'インフラ' }
   end
 end

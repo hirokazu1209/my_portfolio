@@ -1,35 +1,46 @@
-<div class="flex items-center justify-center min-h-screen bg-white">
-  <div class="w-[1000px] flex justify-center">
-    <!-- 4:6 のレイアウト -->
-    <div class="w-5/12 flex flex-col items-center p-4">
-      <!-- 画像部分 -->
-      <div class="w-80 h-80 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-        <% if @user.profile_picture_pass.attached? %>
-          <div><%= image_tag @user.profile_picture_pass, class: "w-full h-full object-cover" %></div>
-        <% else %>
-          <span class="text-gray-500 text-md">未選択</span>
-        <% end %>
+<div class="items-center justify-center min-h-screen bg-white">
+  <div class="flex items-center justify-center">
+    <div class="w-[1000px] flex justify-center">
+      <!-- 4:6 のレイアウト -->
+      <div class="w-5/12 flex flex-col items-center p-4">
+        <!-- 画像部分 -->
+        <div class="w-80 h-80 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+          <% if @user.profile_picture_pass.attached? %>
+            <div><%= image_tag @user.profile_picture_pass, class: "w-full h-full object-cover" %></div>
+          <% else %>
+            <span class="text-gray-500 text-md">未選択</span>
+          <% end %>
+        </div>
+
+        <!-- 氏名部分 -->
+        <p class="mt-4 text-lg font-semibold w-full text-center">
+          <%= @user.name.present? ? @user.name : "未入力です" %>
+        </p>
       </div>
 
-      <!-- 氏名部分 -->
-      <p class="mt-4 text-lg font-semibold w-full text-center">
-        <%= @user.name.present? ? @user.name : "未入力です" %>
-      </p>
+      <div class="w-10/12 flex flex-col p-4">
+        <!-- タイトル -->
+        <h2 class="block text-2xl mt-8 border-b-2 border-[#808080] mb-8 w-fit">自己紹介</h2>
+
+        <!-- テキスト部分 -->
+        <p class="mb-4 text-lg w-full">
+          <%= @user.self_introduction.present? ? @user.self_introduction : "未入力です" %>
+        </p>
+
+        <!-- ボタン部分 -->
+        <div class="actions flex items-center">
+          <%= render "shared/button", text: "自己紹介を編集する", path: "homes/#{@user.id}/edit", method: :get, extra_classes: "w-[232px]" %>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="flex items-center justify-center">
+    <div class="w-[1000px] justify-center">
+      <h2 class="text-2xl mt-8 border-b-2 border-[#808080] mb-8 w-fit">学習チャート</h2>
 
-    <div class="w-10/12 flex flex-col p-4">
-      <!-- タイトル -->
-      <h2 class="block text-2xl mt-8 border-b-2 border-[#808080] mb-8 w-fit">自己紹介</h2>
-
-      <!-- テキスト部分 -->
-      <p class="mb-4 text-lg w-full">
-        <%= @user.self_introduction.present? ? @user.self_introduction : "未入力です" %>
-      </p>
-
-      <!-- ボタン部分 -->
       <div class="actions flex items-center">
-        <%= render "devise/shared/button", text: "自己紹介を編集する", path: "homes/#{@user.id}/edit", method: :get, extra_classes: "w-[232px]" %>
-      </div>
+        <%= render "shared/button", text: "学習記録を編集する", path: items_path, method: :get, extra_classes: "w-[232px]" %>
+      <div>
     </div>
   </div>
 </div>

@@ -1,0 +1,15 @@
+<div class="items-center justify-center min-h-screen bg-white">
+
+  <div class="items-center justify-center min-h-screen bg-white">
+    <div class="flex justify-center">
+      <div class="w-[1000px]">
+        <div class="py-4 w-[100px]">
+          <%= form_with url: items_path, method: :get, local: true, data: { controller: "month-selector" } do |f| %>
+            <%= f.select :target_month, options_for_select(@month_options.map { |m| [m.to_s.insert(4, "年") + "月", m] }, @selected_month), {}, class: "border px-2 py-1 w-full", data: { action: "change->month-selector#change", month_selector_target: "select" } %>
+          <% end %>
+        </div>
+        <%= render "list" %>
+      </div>
+    </div>
+  </div>
+</div>
