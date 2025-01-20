@@ -2,6 +2,7 @@
   path,
   method: method,
   class: "
+    #{extra_classes.presence || ''}
     rounded-md
     cursor-pointer
     focus:outline-none
@@ -10,6 +11,5 @@
     bg-primary
     text-white
     py-2
-    px-4
-    #{extra_classes.presence || ''}"
+    px-4"
 %>
