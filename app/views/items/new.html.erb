@@ -1,0 +1,74 @@
+<div class="max-w-md mx-auto bg-white p-6">
+  <h2 class="text-2xl mt-8 text-center text-gray-800 mb-8"><%= "に項目を追加" %></h2>
+  <%= form_with(model: @item, url: items_path, method: :post, local: true, class: "space-y-4") do |f| %>
+    <div class="field">
+      <%= f.label "項目名", class: "text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name,
+        autofocus: true,
+        autocomplete: "#",
+        class: "mt-1 block w-full border-b border-gray-300 focus:border-primary focus:ring-0 outline-none text-gray-900"
+      %>
+
+      <% if @item.errors[:name].any? %>
+        <div class="text-red-400">
+          <% @item.errors[:name].each do |error| %>
+            <p><%= error %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="field flex flex-col">
+      <%= f.label "学習内容", class: "text-sm font-medium text-gray-700" %>
+      <input
+        type="number"
+        list="number-options"
+        name="study_time"
+        value="<%= @item.study_time %>"
+        min="1"
+        max="180"
+        class="mt-1 w-full border-b border-gray-300 focus:border-primary focus:ring-0 outline-none text-gray-900 px-2" />
+      <% if @item.errors[:study_time].any? %>
+        <div class="text-red-400">
+          <% @item.errors[:study_time].each do |error| %>
+            <p><%= error %></p>
+          <% end %>
+        </div>
+      <% end %>
+      <p class="text-[#757575] text-sm">分単位で入力してください</p>
+    </div>
+
+    <div class="actions flex justify-center items-center">
+      <%= render "shared/button", text: "追加する", path: items_path, method: :post, extra_classes: "w-[232px]" %>
+    </div>
+  <% end %>
+
+  <script>
+    document.addEventListener("turbo:load", function () {
+      const fileInput = document.getElementById("file-input");
+      const fileNameDisplay = document.getElementById("file-name");
+
+      if (!fileInput || !fileNameDisplay) return;
+
+      let originalFileName = fileNameDisplay.textContent.trim();
+      let currentFileName = originalFileName;
+
+      fileInput.addEventListener("input", function () {
+        if (fileInput.files.length > 0) {
+          // 新しいファイルを選択した場合、ファイル名を即時反映
+          currentFileName = fileInput.files[0].name;
+          fileNameDisplay.textContent = currentFileName;
+        }
+      });
+      // ファイル選択画面が閉じられたとき（キャンセル時）
+      fileInput.addEventListener("click", function () {
+        setTimeout(() => {
+          if (fileInput.files.length === 0) {
+            // 既に選択されたファイルがあれば、それを保持
+            fileNameDisplay.textContent = currentFileName;
+          }
+        }, 100);
+      });
+    });
+  </script>
+</div>

@@ -9,4 +9,11 @@ class ItemsController < ApplicationController
       format.turbo_stream { render turbo_stream: turbo_stream.replace('items-list', partial: 'items/list', locals: { items: @items_grouped_by_category }) }
     end
   end
+
+  def new
+    @item = Item.new
+  end
+
+  def create
+  end
 end
