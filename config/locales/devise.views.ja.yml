@@ -24,6 +24,16 @@ ja:
               too_long: "自己紹介は200文字以内で入力してください"
             messages:
               blank: "入力してください"
+        item:
+          attributes:
+            name:
+              blank: "項目名は必ず入力してください"
+              duplicate: "入力した項目名は既に登録されています"
+              too_long: "項目名は50文字以内で入力してください"
+            study_time:
+              blank: "学習時間は必ず入力してください"
+              greater_than_or_equal_to: "学習時間は0以上の数字で入力してください"
+              not_a_number: "学習時間は数字で入力してください"
       messages:
         not_found: "見つかりません"
     attributes:

@@ -15,5 +15,17 @@ class ItemsController < ApplicationController
   end
 
   def create
+    @item = current_user.items.build(item_params)
+    if @item.save
+      redirect_to items_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:name, :study_time, :category_id)
   end
 end

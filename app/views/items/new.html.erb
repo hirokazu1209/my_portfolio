@@ -1,6 +1,6 @@
 <div class="max-w-md mx-auto bg-white p-6">
   <h2 class="text-2xl mt-8 text-center text-gray-800 mb-8"><%= "に項目を追加" %></h2>
-  <%= form_with(model: @item, url: items_path, method: :post, local: true, class: "space-y-4") do |f| %>
+  <%= form_with(model: @item, url: items_path, method: :post, local: true, html: { novalidate: true, class: "space-y-4" }) do |f| %>
     <div class="field">
       <%= f.label "項目名", class: "text-sm font-medium text-gray-700" %>
       <%= f.text_field :name,
@@ -23,9 +23,9 @@
       <input
         type="number"
         list="number-options"
-        name="study_time"
+        name="item[study_time]"
         value="<%= @item.study_time %>"
-        min="1"
+        min="0"
         max="180"
         class="mt-1 w-full border-b border-gray-300 focus:border-primary focus:ring-0 outline-none text-gray-900 px-2" />
       <% if @item.errors[:study_time].any? %>

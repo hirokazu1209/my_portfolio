@@ -2,6 +2,9 @@ class Item < ApplicationRecord
   belongs_to :user
   belongs_to :category
 
+  validates :name, presence: true, length: { maximum: 50 }, uniqueness: { scope: :created_at}
+  validates :study_time, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0}
+
   # 今月・前月・前々月のYYYYMMをリスト化
   def generate_month_options
     today = Date.today
