@@ -19,12 +19,14 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params.merge(user: current_user, category: @category))
     if @item.save
+      @modal_message = "#{@category.name}の学習内容を登録しました！"
       respond_to do |format|
-        format.html { redirect_to items_path, notice: "学習内容を登録しました" }
-        format.turbo_stream
+        format.html { redirect_to items_path, notice: @modal_message }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("modal", partial: "items/create_modal")
+        end
       end
     else
-      Rails.logger.debug(@item.errors.full_messages)
       render :new, status: :unprocessable_entity
     end
   end

@@ -17,6 +17,7 @@
       <p class="notice text-center justify-center"><%= notice %></p>
       <p class="alert text-center justify-center"><%= alert %></p>
       <%= yield %>
+      <%= turbo_frame_tag "modal" %>
     </main>
     <%= render "layouts/footer" %>
   </body>

@@ -1,24 +1,19 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["modal"];
+  static targets = ["background", "content"];
 
   conect() {
-    console.log("Modal controller connected");
+    this.show()
   }
 
-  open() {
-    this.modalTarget.classList.remove("hidden");
+  show() {
+    this.backgroundTarget.classList.remove("hidden")
+    this.contentTarget.classList.remove("hidden")
   }
 
-  close() {
-    this.modalTarget.classList.add("hidden");
-  }
-
-  autoClose() {
-    this.open();
-    setTimeout(() => {
-      this.close();
-    }, 2000);
+  hide() {
+    this.backgroundTarget.classList.add("hidden")
+    this.contentTarget.classList.add("hidden")
   }
 }

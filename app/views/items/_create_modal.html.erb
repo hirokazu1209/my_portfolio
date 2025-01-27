@@ -1,0 +1,20 @@
+<div data-controller="modal" class="fixed inset-0 flex items-center justify-center z-50">
+  <!-- 背景の半透明グレー -->
+  <div data-modal-target="background" class="absolute inset-0 bg-gray-500 opacity-50"></div>
+
+  <!-- モーダル本体 -->
+  <div data-modal-target="content" class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full h-[14rem] flex flex-col justify-center items-center">
+    <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 text-center">
+      <div class="sm:flex sm:items-start">
+        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+          <h3 class="text-lg leading-6 font-medium text-gray-900">
+            <%= @modal_message %>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+      <%= link_to "編集ページに戻る", items_path, class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm" %>
+    </div>
+  </div>
+</div>
