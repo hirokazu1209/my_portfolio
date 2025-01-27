@@ -49,8 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_10_135447) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.string "name"
-    t.integer "study_time"
+    t.string "name", null: false
+    t.integer "study_time", null: false
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
     t.datetime "created_at", null: false

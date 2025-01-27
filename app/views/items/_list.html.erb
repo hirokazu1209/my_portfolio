@@ -5,12 +5,12 @@
         <div class="flex items-center justify-between">
           <h1 class="w-[200px] underline underline-offset-4 decoration-2 font-bold text-2xl"><%= category.name %></h1>
           <div class="actions flex items-center justify-center mt-0 py-4">
-            <%= render "shared/button", text: "項目を追加する", path: "#", method: :get, extra_classes: "mt-0 w-[180px]" %>
+            <%= render "shared/button", text: "項目を追加する", path: new_category_item_path(category), method: :get, extra_classes: "mt-0 w-[180px]" %>
           </div>
         </div>
         <!-- テーブルコンポーネント -->
-        <div class="w-full border shadow-md rounded-lg">
-          <table class="w-full divide-y divide-slate-200">
+        <div class="w-full border shadow-md rounded-lg overflow-y-auto max-h-[268px]">
+          <table class="w-full divide-y divide-slate-200 h-full">
             <thead class="text-slate-800">
               <tr>
                 <th class="px-4 py-2 text-start">項目名</th>

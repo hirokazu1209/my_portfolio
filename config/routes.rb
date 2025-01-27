@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   resources :homes, only: [:edit, :update]
   resources :items, only: [:index]
+  resources :categories do
+    resources :items, only: [:new, :create]
+  end
 
   devise_for :users
   devise_scope :user do
