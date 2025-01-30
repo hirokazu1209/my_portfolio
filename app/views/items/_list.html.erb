@@ -9,34 +9,36 @@
           </div>
         </div>
         <!-- テーブルコンポーネント -->
-        <div class="w-full border shadow-md rounded-lg overflow-y-auto max-h-[268px]">
-          <table class="w-full divide-y divide-slate-200 h-full">
-            <thead class="text-slate-800">
-              <tr>
-                <th class="px-4 py-2 text-start">項目名</th>
-                <th class="px-4 py-2 text-start">学習時間</th>
-                <th class="px-4 py-2 text-start"></th>
-                <th class="px-4 py-2 text-start"></th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-200 bg-white text-slate-80">
-              <% items.each do |item| %>
+        <%= form_with(model: @item, url: item_path(category.id), method: :patch, local: true) do %>
+          <div class="w-full border shadow-md rounded-lg overflow-y-auto max-h-[268px]">
+            <table class="w-full divide-y divide-slate-200 h-full">
+              <thead class="text-slate-800">
                 <tr>
-                  <td class="px-4 py-4 w-1/4"><%= item.name %></td>
-                  <td class="px-4 py-4 w-1/4">
-                    <input type="number" list="number-options" name="study_time" value="<%= item.study_time %>" min="1" max="180" class="w-full border rounded px-2 py-2" />
-                  </td>
-                  <td class="actions px-4 py-4 text-center items-center justify-center w-1/4">
-                    <%= render "shared/button", text: "学習時間を保存する", path: "#", method: "#", extra_classes: "text-primary border border-primary" %>
-                  </td>
-                  <td class="actions px-4 py-4 text-center items-center justify-center w-[100px]">
-                    <%= render "shared/button", text: "削除する", path: "#", method: "#", extra_classes: "bg-secondary w-[100px]" %>
-                  </td>
+                  <th class="px-4 py-2 text-start">項目名</th>
+                  <th class="px-4 py-2 text-start">学習時間</th>
+                  <th class="px-4 py-2 text-start"></th>
+                  <th class="px-4 py-2 text-start"></th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody class="divide-y divide-slate-200 bg-white text-slate-80">
+                  <% items.each do |item| %>
+                    <tr>
+                      <td class="px-4 py-4 w-1/4"><%= item.name %></td>
+                      <td class="px-4 py-4 w-1/4">
+                        <input type="number" list="number-options" name=item[study_time] value="<%= item.study_time %>" min="1" max="180" class="w-full border rounded px-2 py-2" />
+                      </td>
+                      <td class="actions px-4 py-4 text-center items-center justify-center w-1/4">
+                        <%= render "shared/button", text: "学習時間を保存する", path: item_path(item.id), method: :patch, extra_classes: "color-primary border border-primary" %>
+                      </td>
+                      <td class="actions px-4 py-4 text-center items-center justify-center w-[100px]">
+                        <%= render "shared/button", text: "削除する", path: "#", method: "#", extra_classes: "bg-secondary w-[100px]" %>
+                      </td>
+                    </tr>
+                  <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>
