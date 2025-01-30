@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :homes, only: [:edit, :update]
   resources :items, only: [:index]
   resources :categories do
-    resources :items, only: [:new, :create]
+    resources :items, shallow: true, except: [:index]
   end
 
   devise_for :users
