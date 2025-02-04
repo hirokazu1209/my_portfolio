@@ -2,13 +2,17 @@ class ItemsController < ApplicationController
   before_action :set_category, only: %i[new create]
 
   def index
-    @month_options = Item.new.generate_month_options
-    @selected_month = (params[:target_month] || Date.today.strftime('%Y%m')).to_i
+    today = Date.today
+    current_year = today.year
+    @month_options = (0..2).map { |i| (today - i.months).strftime('%Y%m').to_i }
+    target_month = (params[:target_month] || today.strftime('%m')).to_i
+    @selected_month = "#{current_year}#{format('%02d', target_month)}".to_i
     @items_grouped_by_category = Item.by_target_month(@selected_month).includes(:user, :category).order(:id).group_by(&:category)
+    @categories = Category.all
 
     respond_to do |format|
       format.html
-      format.turbo_stream { render turbo_stream: turbo_stream.replace('items-list', partial: 'items/list', locals: { items: @items_grouped_by_category }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace('items-list', partial: 'items/list', locals: { items: @items_grouped_by_category, categories: @categories }) }
     end
   end
 
@@ -39,6 +43,21 @@ class ItemsController < ApplicationController
     @category = @item.category
     if @item.update(item_params)
       @modal_message = "#{@item.name}の学習内容を更新しました！"
+      respond_to do |format|
+        format.html { redirect_to items_path, notice: @modal_message }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("modal", partial: "items/create_modal")
+        end
+      end
+    else
+      render :index, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @item = Item.find(params[:id])
+    if @item.destroy
+      @modal_message = "#{@item.name}を削除しました！"
       respond_to do |format|
         format.html { redirect_to items_path, notice: @modal_message }
         format.turbo_stream do

@@ -1,19 +1,33 @@
 <div id="items-list">
-  <% @items_grouped_by_category.each do |category, items| %>
-    <div class=" p-4 border border-gray-500 rounded-lg mb-8">
-      <div>
-        <div class="flex items-center justify-between">
-          <h1 class="w-[200px] underline underline-offset-4 decoration-2 font-bold text-2xl"><%= category.name %></h1>
-          <div class="actions flex items-center justify-center mt-0 py-4">
-            <%= render "shared/button", text: "項目を追加する", path: new_category_item_path(category), method: :get, extra_classes: "mt-0 w-[180px]" %>
+  <% if @items_grouped_by_category.empty? %>
+    <% @categories.each do |category| %>
+      <div class=" p-4 border border-gray-500 rounded-lg mb-8">
+        <div>
+          <div class="flex items-center justify-between">
+            <h1 class="w-[200px] underline underline-offset-4 decoration-2 font-bold text-2xl"><%= category.name %></h1>
+            <div class="actions flex items-center justify-center mt-0 py-4">
+              <%= render "shared/button", text: "項目を追加する", path: new_category_item_path(category), method: :get, extra_classes: "mt-0 w-[180px]" %>
+            </div>
+          </div>
+          <div>
+            <p class="text-center">項目がありません</p>
           </div>
         </div>
-        <!-- テーブルコンポーネント -->
-        <%= form_with(model: @item, url: item_path(category.id), method: :patch, local: true) do %>
+      </div>
+    <% end %>
+  <% else %>
+    <% @items_grouped_by_category.each do |category, items| %>
+      <div class=" p-4 border border-gray-500 rounded-lg mb-8">
+        <div>
+          <div class="flex items-center justify-between">
+            <h1 class="w-[200px] underline underline-offset-4 decoration-2 font-bold text-2xl"><%= category.name %></h1>
+            <div class="actions flex items-center justify-center mt-0 py-4">
+              <%= render "shared/button", text: "項目を追加する", path: new_category_item_path(category), method: :get, extra_classes: "mt-0 w-[180px]" %>
+            </div>
+          </div>
           <div class="w-full border shadow-md rounded-lg overflow-y-auto max-h-[268px]">
             <table class="w-full divide-y divide-slate-200 h-full">
               <thead class="text-slate-800">
-                <tr>
                   <th class="px-4 py-2 text-start">項目名</th>
                   <th class="px-4 py-2 text-start">学習時間</th>
                   <th class="px-4 py-2 text-start"></th>
@@ -31,15 +45,15 @@
                         <%= render "shared/button", text: "学習時間を保存する", path: item_path(item.id), method: :patch, extra_classes: "color-primary border border-primary" %>
                       </td>
                       <td class="actions px-4 py-4 text-center items-center justify-center w-[100px]">
-                        <%= render "shared/button", text: "削除する", path: "#", method: "#", extra_classes: "bg-secondary w-[100px]" %>
+                        <%= render "shared/button", text: "削除する", path: item_path(item.id), method: :delete, extra_classes: "bg-secondary w-[100px]" %>
                       </td>
                     </tr>
                   <% end %>
               </tbody>
             </table>
           </div>
-        <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>
