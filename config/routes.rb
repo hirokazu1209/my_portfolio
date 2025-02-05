@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'homes#top'
 
-  resources :homes, only: [:edit, :update]
+  resources :homes, only: [:edit, :update, :graph]
   resources :items, only: [:index]
   resources :categories do
     resources :items, shallow: true, except: [:index]
