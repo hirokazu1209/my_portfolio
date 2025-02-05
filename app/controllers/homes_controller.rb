@@ -21,6 +21,17 @@ class HomesController < ApplicationController
     end
   end
 
+  def graph
+    @user = current_user
+
+    today = Date.today
+    @month_options = (0..2).map {|i| (today - i.month).strftime('%Y%m').to_i}
+    @study_data = Item.where(user: @user)
+                      .where("TO_CHAR(updated_at, 'YYYYMM') IN (?)", @month_options.map(&:to_s))
+                      .group_by { |item| [item.updated_at.strftime('%Y%m'), item.category.name] }
+                      .transform_values(&:count)
+  end
+
   private
 
   def user_params

@@ -38,9 +38,52 @@
     <div class="w-[1000px] justify-center">
       <h2 class="text-2xl mt-8 border-b-2 border-[#808080] mb-8 w-fit">学習チャート</h2>
 
-      <div class="actions flex items-center">
+      <div class="actions justify-center">
         <%= render "shared/button", text: "学習記録を編集する", path: items_path, method: :get, extra_classes: "w-[232px]" %>
       <div>
+
+      <div class="w-full flex justify-center">
+        <canvas id="studyChart" class="w-[800px] h-[400px]"></canvas>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const canvas = document.getElementById("studyChart");
+          if (!canvas) {
+            console.error("Canvas要素が見つかりません。id='studyChart' が正しく設定されていますか？");
+            return;
+          }
+
+          console.log("Canvas要素が見つかりました:", canvas);
+
+          try {
+            const ctx = canvas.getContext("2d");
+
+            new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: ["今月", "先月", "先々月"],
+                datasets: [
+                  {
+                    label: "学習時間",
+                    data: [10, 5, 8],
+                    backgroundColor: "rgba(54, 162, 235, 0.6)"
+                  }
+                ]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false
+              }
+            });
+
+            console.log("Chartが正常に描画されました。");
+
+          } catch (error) {
+            console.error("Chart描画時にエラーが発生:", error);
+          }
+        });
+      </script>
     </div>
   </div>
 </div>
